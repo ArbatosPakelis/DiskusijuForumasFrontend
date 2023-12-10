@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Nunito', sans-serif;
+    color: #fff;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #121212;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  padding: 1rem 0.5rem;
+}
+
+section {
+    font-size: 22px;
+    width: 100%;
+    max-width: 420px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    padding: 1rem;
+    background-color: #282828;
+}
+
+h3{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+a, a:visited {
+    color: #fff;
+}
+
+input[type="text"],
+input[type="password"],
+button,
+textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errorMessage {
+    background-color: white;
+    color: red;
+    border: solid red;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+}
+
+.header{
+    height: 60px;
+    width: 100%;
+    background-color: #282828;
+    color:white;
+    margin-bottom: 50px;
+}
+
+.head{
+    float:right;
+    margin-right: 10px;
+    font-size: 10px;
+    background-color: #282828;
+    color: white;
+    border: solid white;
+    height: 35px;
+    width: 60px;
+}
+
+.headButton{
+    background-color: #282828;
+    color: white;
+    border: none;
+    height: 35px;
+    width: 150px;
+}
+
+.other{
+    float:right;
+    padding-left: 10px;
+}
+
+.dataRow{
+    display: flex;
+    margin-left: auto;
+    margin-right:auto;
+    background-color: #282828;
+    color: white;
+    border: solid white;
+    padding: 5px;
+    min-width: 500px;
+    max-width: 700px;
+    height: 200px;
+    margin-bottom: 10px;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.units{
+    display: inline-flex;
+}
+
