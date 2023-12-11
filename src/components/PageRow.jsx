@@ -15,6 +15,9 @@ export default function PageRow(props){
                 <div>
                     <p>{props.description}</p>
                 </div>
+                <div className="bottomRightContainer">
+                    <button className="bottomRightButton">Update</button>
+                </div>
             </div>
         </Link>
     );
