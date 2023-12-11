@@ -12,6 +12,9 @@ export default function ThreadRow(props){
                         <p className="other">upvotes: {props.upvotes}</p>
                         <p className="other">downvotes: {props.downvotes}</p>
                     </div>
+                    <div className="bottomRightContainer">
+                    <button className="bottomRightButton">Update</button>
+                    </div>
                 </div>
             </div>
         </Link>

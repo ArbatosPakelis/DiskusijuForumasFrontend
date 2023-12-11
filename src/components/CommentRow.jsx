@@ -11,6 +11,9 @@ export default function CommentRow(props){
                 <div>
                     <p style={{ margin:"20px 0px 0px 10px"}}>{props.content}</p>
                 </div>
+                <div className="bottomRightContainer">
+                    <button className="bottomRightButton">Update</button>
+                </div>
             </div>
         </div>
     );
