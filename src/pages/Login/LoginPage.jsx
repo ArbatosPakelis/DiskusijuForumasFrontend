@@ -44,8 +44,9 @@ export default function LoginPage(){
             const accessToken = response?.data?.accessToken;
             const refreshToken = response?.data?.refreshToken;
             const role = response?.data?.role;
+            const id = response?.data?.id;
             // set global variables
-            setAuth({ username, role, accessToken, refreshToken});
+            setAuth({ id, username, role, accessToken, refreshToken});
             // remove input data
             setUsername('');
             setPassword('');
