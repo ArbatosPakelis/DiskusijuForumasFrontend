@@ -30,9 +30,7 @@ export default function CommentSection(){
     }
 
     const handleFormSubmit = () => {
-        console.log("form works very well");
         fetchingComments();
-        console.log("fetching works aswell");
         setNewComment(false);
     };
 
@@ -41,7 +39,6 @@ export default function CommentSection(){
     }, [])
 
     const onClick = async (e) => {
-        console.log(newComment);
         if(newComment === false)
         {
             setNewComment(true);
@@ -68,7 +65,7 @@ export default function CommentSection(){
             )}
             <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             {comments !== undefined && comments.length !== 0 ? (
-                comments.map((x) => <CommentRow key={x.id} {...x} />)
+                comments.map((x) => <CommentRow onFormSubmit={handleFormSubmit} key={x.id} {...x} />)
             ) : (
                 <p> </p>
             )}

@@ -38,7 +38,6 @@ export default function MainPage(req){
 
 
     const onClick = async (e) => {
-        console.log(newPage);
         if(newPage === false)
         {
             setNewPage(true);
@@ -65,7 +64,7 @@ export default function MainPage(req){
             )}
             <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             {pages !== undefined && pages.length !== 0 ? (
-                pages.map((x) => <PageRow key={x.id} {...x} />)
+                pages.map((x) => <PageRow onFormSubmit={handleFormSubmit} key={x.id} {...x} />)
             ) : (
                 <p> </p>
             )}

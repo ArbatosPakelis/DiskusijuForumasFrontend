@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import defaultApi from "../apis/defaultApi";
 import useAuth from "../hooks/useAuth";
 
 export default function ThreadForm(props){
     const [name, setName] = useState("");
-    // const [upvotes, setUpvotes] = useState("");
-    // const [downvotes, setDownvotes] = useState("");
-    const { auth } = useAuth();
+    const { auth, setAuth } = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const params = useParams();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,11 +40,43 @@ export default function ThreadForm(props){
               setErrorMessage('Thread already exists');
             } else if (err.response?.status === 401) {
               setErrorMessage('Forbidden');
+              await Press();
             } else {
               setErrorMessage('Thread creation Failed');
             }
           }
     }
+
+    const Press = async () => {
+      try {
+        // http request
+        const response = await defaultApi.post(
+          "/api/v1/users/logout",
+          JSON.stringify({}),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${auth.refreshToken}`,
+            },
+            withCredentials: true,
+          }
+        );
+        if (response?.status === 200) {
+          setAuth({});
+          navigate("/Login", { replace: true });
+        }
+      } catch (err) {
+        if (!err?.response) {
+          setErrorMessage('No Server Response');
+        } else if (err.response?.status === 403) {
+          setErrorMessage('Invalid user');
+        } else if (err.response?.status === 401) {
+          setErrorMessage('Forbidden');
+        } else {
+          setErrorMessage('Logout Failed');
+        }
+      }
+    };
 
     return (
         
@@ -63,30 +94,6 @@ export default function ThreadForm(props){
                         value={name}
                         required
                     />
-
-                    {/* <label htmlFor="upvotes">
-                        upvotes:
-                    </label>
-                    <input
-                        type="number"
-                        id="upvotes"
-                        autoComplete="off"
-                        onChange={(e) => setUpvotes(e.target.value)}
-                        value={upvotes}
-                        required
-                    />
-
-                    <label htmlFor="downvotes">
-                        downvotes:
-                    </label>
-                    <input
-                        type="number"
-                        id="downvotes"
-                        autoComplete="off"
-                        onChange={(e) => setDownvotes(e.target.value)}
-                        value={downvotes}
-                        required
-                    /> */}
 
                     <button type="submit">submit</button>
                 </form>

@@ -39,7 +39,6 @@ export default function ThreadList(){
     }, [])
     
     const onClick = async (e) => {
-        console.log(newThread);
         if(newThread === false)
         {
             setNewThread(true);
@@ -66,7 +65,7 @@ export default function ThreadList(){
             )}
             <p className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             {threads !== undefined && threads.length !== 0 ? (
-                threads.map((x) => <ThreadRow key={x.id} {...x} />)
+                threads.map((x) => <ThreadRow onFormSubmit={handleFormSubmit} key={x.id} {...x} />)
             ) : (
                 <p> </p>
             )}

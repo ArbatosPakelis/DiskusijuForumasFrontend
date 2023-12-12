@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import defaultApi from "../apis/defaultApi";
 import useAuth from "../hooks/useAuth";
 
@@ -7,8 +7,9 @@ export default function PageForm(props){
     const [category, setCategory] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const { auth } = useAuth();
+    const { auth, setAuth } = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,12 +42,44 @@ export default function PageForm(props){
               setErrorMessage('Page already exists');
             } else if (err.response?.status === 401) {
               setErrorMessage('Forbidden');
+              await Press();
             } else {
-              setErrorMessage('Page creation Failed');
+              setErrorMessage('Page update failed');
             }
           }
     }
 
+    const Press = async () => {
+      try {
+        // http request
+        const response = await defaultApi.post(
+          "/api/v1/users/logout",
+          JSON.stringify({}),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${auth.refreshToken}`,
+            },
+            withCredentials: true,
+          }
+        );
+        if (response?.status === 200) {
+          setAuth({});
+          navigate("/Login", { replace: true });
+        }
+      } catch (err) {
+        if (!err?.response) {
+          setErrorMessage('No Server Response');
+        } else if (err.response?.status === 403) {
+          setErrorMessage('Invalid user');
+        } else if (err.response?.status === 401) {
+          setErrorMessage('Forbidden');
+        } else {
+          setErrorMessage('Logout Failed');
+        }
+      }
+    };
+    
     return (
         
         props.status ? (
