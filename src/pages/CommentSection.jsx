@@ -30,6 +30,8 @@ export default function CommentSection(){
     }
 
     const handleFormSubmit = () => {
+        setComments(undefined);
+        setErrorMessage('');
         fetchingComments();
         setNewComment(false);
     };

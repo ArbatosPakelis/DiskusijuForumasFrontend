@@ -84,8 +84,6 @@ export default function PageRow(props){
           } catch (err) {
             if (!err?.response) {
               setErrorMessage('No Server Response');
-            } else if (err.response?.status === 403) {
-              setErrorMessage('Page already exists');
             } else if (err.response?.status === 401) {
                 setErrorMessage('Forbidden');
                 await Press();

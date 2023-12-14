@@ -51,11 +51,11 @@ export default function MainPage(req){
     return (
         <>
             <Header/>
-            <h3>MainPage</h3>
+            <h3>Welcome to the main page !</h3>
             { auth?.username != null ? (
                 <>
                 <button className="smallButton" onClick={onClick}>
-                    New page
+                    new page
                 </button>
                 <PageForm status={newPage} onFormSubmit={handleFormSubmit}/>
                 </>
