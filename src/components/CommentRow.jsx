@@ -59,6 +59,35 @@ export default function CommentRow(props){
           }
     }
 
+    const onTickle = async(e) =>{
+      e.preventDefault();
+      try {
+          // http request
+          const response1 = await defaultApi.delete(
+            `/api/v1/comments/${props.id}`,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${auth.accessToken}`,
+              },
+            }
+          );
+          if (response1?.status === 200) {
+              props.onFormSubmit();
+          }
+        } catch (err) {
+          if (!err?.response) {
+            setErrorMessage('No Server Response');
+          } else if (err.response?.status === 401) {
+              setErrorMessage('Forbidden');
+              await Press();
+              console.log(err);
+          } else {
+            setErrorMessage('Comment deletion failed');
+          }
+        }
+  };
+
     const Press = async () => {
         try {
           // http request
@@ -102,7 +131,8 @@ export default function CommentRow(props){
                         <p style={{ margin:"20px 0px 0px 10px"}}>{props.content}</p>
                     </div>
                     <div className="bottomRightContainer">
-                        <button className="bottomRightButton" onClick={onClick}>Update</button>
+                        <button className="bottomRightButton" style={{marginRight:"100px"}} onClick={onClick}>Update</button>
+                        <button className="bottomRightButton" onClick={onTickle}>Delete</button>
                     </div>
                 </div>
             </div>

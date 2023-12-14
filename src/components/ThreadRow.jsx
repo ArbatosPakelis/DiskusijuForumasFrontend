@@ -89,6 +89,35 @@ export default function ThreadRow(props){
         }
     };
 
+    const onTickle = async(e) =>{
+      e.preventDefault();
+      try {
+          // http request
+          const response1 = await defaultApi.delete(
+            `/api/v1/threads/${props.id}`,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${auth.accessToken}`,
+              },
+            }
+          );
+          if (response1?.status === 200) {
+              await props.onFormSubmit();
+          }
+        } catch (err) {
+          if (!err?.response) {
+            setErrorMessage('No Server Response');
+          } else if (err.response?.status === 401) {
+              setErrorMessage('Forbidden');
+              await Press();
+              console.log(err);
+          } else {
+            setErrorMessage('Thread deletion failed');
+          }
+        }
+  };
+
     return (
         <>
             <div className="dataRow">
@@ -104,7 +133,8 @@ export default function ThreadRow(props){
                     </div>
                     { auth.id === props.users_fk || auth.role === "admin" ? (
                     <div className="bottomRightContainer">
-                        <button className="bottomRightButton" onClick={onClick}>Update</button>
+                        <button className="bottomRightButton" style={{marginRight:"100px"}} onClick={onClick}>Update</button>
+                        <button className="bottomRightButton" onClick={onTickle}>Delete</button>
                     </div>
                     ) : (
                         <p></p>

@@ -18,6 +18,7 @@ export default function ThreadList(){
         try {
             const response = await defaultApi.get(`/api/v1/threads/${id}/bonus`);
             setThreads(response?.data?.threads);
+            console.log(response);
         } catch (err) {
             if (!err?.response) {
                 setErrorMessage('No Server Response');
@@ -29,8 +30,10 @@ export default function ThreadList(){
         }
     }
 
-    const handleFormSubmit = () => {
-        fetchingThreads();
+    const handleFormSubmit = async() => {
+        setThreads(undefined);
+        setErrorMessage('');
+        await fetchingThreads();
         setNewThread(false);
     };
 

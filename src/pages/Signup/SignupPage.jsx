@@ -73,7 +73,7 @@ export default function SignupPage(){
                 JSON.stringify({ username: username,
                                  password: password,
                                  email: email,
-                                 isDelete:true,
+                                 isDelete:false,
                                  status:"regular",
                                  ForceRelogin:false }),
                 {
