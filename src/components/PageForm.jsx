@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import defaultApi from "../apis/defaultApi";
 import useAuth from "../hooks/useAuth";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function PageForm(props){
     const [category, setCategory] = useState("");
@@ -10,12 +10,13 @@ export default function PageForm(props){
     const { auth, setAuth } = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const PrivateApi = usePrivateApi();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             // http request
-            const response = await defaultApi.post(
+            const response = await PrivateApi.post(
               "/api/v1/pages",
               JSON.stringify({ 
                 category: category,
@@ -52,7 +53,7 @@ export default function PageForm(props){
     const Press = async () => {
       try {
         // http request
-        const response = await defaultApi.post(
+        const response = await PrivateApi.post(
           "/api/v1/users/logout",
           JSON.stringify({}),
           {

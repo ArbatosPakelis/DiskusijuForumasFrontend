@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import defaultApi from "../apis/defaultApi";
 import useAuth from "../hooks/useAuth";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function ThreadForm(props){
     const [name, setName] = useState("");
@@ -9,12 +9,13 @@ export default function ThreadForm(props){
     const [errorMessage, setErrorMessage] = useState('');
     const params = useParams();
     const navigate = useNavigate();
+    const PrivateApi = usePrivateApi();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             // http request
-            const response = await defaultApi.post(
+            const response = await PrivateApi.post(
               "/api/v1/threads",
               JSON.stringify({ 
                 name: name,
@@ -50,7 +51,7 @@ export default function ThreadForm(props){
     const Press = async () => {
       try {
         // http request
-        const response = await defaultApi.post(
+        const response = await PrivateApi.post(
           "/api/v1/users/logout",
           JSON.stringify({}),
           {

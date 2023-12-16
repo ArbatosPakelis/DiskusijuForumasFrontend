@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import defaultApi from "../apis/defaultApi";
 import useAuth from "../hooks/useAuth";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function Header() {
   const { auth, setAuth } = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const PrivateApi = usePrivateApi();
 
   const HandlePress = async () => {
     try {
       // http request
-      const response = await defaultApi.post(
+      const response = await PrivateApi.post(
         "/api/v1/users/logout",
         JSON.stringify({}),
         {

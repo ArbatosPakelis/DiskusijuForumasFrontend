@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import defaultApi from "../apis/defaultApi";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function CommentRow(props){
     const [ update, setUpdate] = useState(false);
@@ -9,6 +9,7 @@ export default function CommentRow(props){
     const { auth, setAuth } = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const PrivateApi = usePrivateApi();
 
     const onClick = async (e) => {
 
@@ -26,7 +27,7 @@ export default function CommentRow(props){
         e.preventDefault();
         try {
             // http request
-            const response = await defaultApi.patch(
+            const response = await PrivateApi.patch(
               "/api/v1/comments",
               JSON.stringify({ 
                 content: content,
@@ -63,7 +64,7 @@ export default function CommentRow(props){
       e.preventDefault();
       try {
           // http request
-          const response1 = await defaultApi.delete(
+          const response1 = await PrivateApi.delete(
             `/api/v1/comments/${props.id}`,
             {
               headers: {
@@ -81,7 +82,6 @@ export default function CommentRow(props){
           } else if (err.response?.status === 401) {
               setErrorMessage('Forbidden');
               await Press();
-              console.log(err);
           } else {
             setErrorMessage('Comment deletion failed');
           }
@@ -91,7 +91,7 @@ export default function CommentRow(props){
     const Press = async () => {
         try {
           // http request
-          const response = await defaultApi.post(
+          const response = await PrivateApi.post(
             "/api/v1/users/logout",
             JSON.stringify({}),
             {

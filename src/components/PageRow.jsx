@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import defaultApi from "../apis/defaultApi";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function PageRow(props){
     const [ update, setUpdate] = useState(false);
@@ -11,7 +11,8 @@ export default function PageRow(props){
     const { auth, setAuth } = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    
+    const PrivateApi = usePrivateApi();
+
     const onClick = async (e) => {
 
         if(update === false)
@@ -28,7 +29,7 @@ export default function PageRow(props){
         e.preventDefault();
         try {
             // http request
-            const response = await defaultApi.patch(
+            const response = await PrivateApi.patch(
               "/api/v1/pages",
               JSON.stringify({ 
                 category: category,
@@ -69,7 +70,7 @@ export default function PageRow(props){
         e.preventDefault();
         try {
             // http request
-            const response1 = await defaultApi.delete(
+            const response1 = await PrivateApi.delete(
               `/api/v1/pages/${props.id}`,
               {
                 headers: {
@@ -87,7 +88,6 @@ export default function PageRow(props){
             } else if (err.response?.status === 401) {
                 setErrorMessage('Forbidden');
                 await Press();
-                console.log(err);
             } else {
               setErrorMessage('Page deletion failed');
             }
@@ -97,7 +97,7 @@ export default function PageRow(props){
     const Press = async () => {
         try {
           // http request
-          const response = await defaultApi.post(
+          const response = await PrivateApi.post(
             "/api/v1/users/logout",
             JSON.stringify({}),
             {

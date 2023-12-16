@@ -1,11 +1,10 @@
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
-import defaultApi from "../apis/defaultApi";
 import CommentRow from "../components/CommentRow";
 import useAuth from "../hooks/useAuth";
 import CommentForm from "../components/CommentForm";
-
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function CommentSection(){
     const { auth} = useAuth();
@@ -13,10 +12,25 @@ export default function CommentSection(){
     const [comments, setComments] = useState(undefined);
     const [errorMessage, setErrorMessage] = useState('');
     const [ newComment, setNewComment] = useState(false);
+    const [subject, setSubject] = useState(undefined);
+    const PrivateApi = usePrivateApi();
 
     async function fetchingComments() {
         try {
-            const response = await defaultApi.get(`/api/v1/comments/${id}/bonus`);
+            const response1 = await PrivateApi.get(`/api/v1/threads/${id}`);
+            setSubject(response1?.data?.thread);
+        } catch (err) {
+            if (!err?.response) {
+                setErrorMessage('No Server Response');
+            } else if (err.response?.status === 404) {
+                setErrorMessage('No thread was found');
+            } else {
+                setErrorMessage('Thread load failure')
+            }
+        }
+
+        try {
+            const response = await PrivateApi.get(`/api/v1/comments/${id}/bonus`);
             setComments(response?.data?.comments);
         } catch (err) {
             if (!err?.response) {
@@ -54,7 +68,7 @@ export default function CommentSection(){
     return (
         <>
             <Header/>
-            <h3>CommentSection</h3>
+            <h3>{subject?.name}</h3>
             { auth?.username != null ? (
                 <>
                 <button className="smallButton" onClick={onClick}>

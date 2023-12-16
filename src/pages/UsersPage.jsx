@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import PageRow from "../components/PageRow";
-import defaultApi from "../apis/defaultApi";
 import useAuth from "../hooks/useAuth";
 import PageForm from "../components/PageForm";
 import UserRow from "../components/UserRow";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function MainPage(req){
     const { auth} = useAuth();
     const [users, setUsers] = useState(undefined);
     const [errorMessage, setErrorMessage] = useState('');
+    const PrivateApi = usePrivateApi();
 
     async function fetchingUsers() {
         try {
             let response = "";
             if(auth.role === "admin")
             {
-                response = await defaultApi.get("/api/v1/users",
+                response = await PrivateApi.get("/api/v1/users",
                 {
                   headers: {
                     'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ export default function MainPage(req){
             }
             else
             {
-                response = await defaultApi.get(`/api/v1/users/${auth.id}`,
+                response = await PrivateApi.get(`/api/v1/users/${auth.id}`,
                 {
                   headers: {
                     'Content-Type': 'application/json',

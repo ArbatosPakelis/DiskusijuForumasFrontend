@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import defaultApi from "../apis/defaultApi";
 import useAuth from "../hooks/useAuth";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function CommentForm(props){
     const [content, setContent] = useState("");
@@ -9,12 +9,13 @@ export default function CommentForm(props){
     const [errorMessage, setErrorMessage] = useState('');
     const params = useParams();
     const navigate = useNavigate();
+    const PrivateApi = usePrivateApi();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             // http request
-            const response = await defaultApi.post(
+            const response = await PrivateApi.post(
               "/api/v1/comments",
               JSON.stringify({ 
                 content: content,
@@ -29,14 +30,11 @@ export default function CommentForm(props){
                 },
               }
             );
-            console.log(response?.status);
             if (response?.status === 200) {
-                console.log("form works");
                 props.onFormSubmit();
                 setContent("");
             }
           } catch (err) {
-            console.log(err.response);
             if (!err?.response) {
               setErrorMessage('No Server Response');
             } else if (err.response?.status === 403) {
@@ -53,7 +51,7 @@ export default function CommentForm(props){
     const Press = async () => {
       try {
         // http request
-        const response = await defaultApi.post(
+        const response = await PrivateApi.post(
           "/api/v1/users/logout",
           JSON.stringify({}),
           {

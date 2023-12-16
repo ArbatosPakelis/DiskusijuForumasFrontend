@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import defaultApi from "../apis/defaultApi";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function UserRow(props){
-    const [ password, setPassword] = useState(false);
+    const [ password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [status, setStatus] = useState(false);
+    const [status, setStatus] = useState("");
     const [ForceLogin, setForceLogin] = useState("");
     const { auth, setAuth } = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const [ update, setUpdate] = useState(false);
+    const PrivateApi = usePrivateApi();
 
     const onClick = async (e) => {
 
@@ -31,14 +32,14 @@ export default function UserRow(props){
             let response = "";
             // http request
             if(auth.role === "admin"){
-                response = await defaultApi.patch("/api/v1/users",
-                    JSON.stringify({ username: auth.username,
+                response = await PrivateApi.patch("/api/v1/users",
+                    JSON.stringify({ username: props.username,
                                     password: password,
                                     email: email,
                                     isDelete:false,
                                     status: status,
                                     ForceRelogin:ForceLogin,
-                                    id: auth.id }),
+                                    id: props.id }),
                     {
                         headers: { 
                             'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ export default function UserRow(props){
             }
             else
             {
-                response = await defaultApi.patch("/api/v1/users",
+                response = await PrivateApi.patch("/api/v1/users",
                     JSON.stringify({ username: auth.username,
                                     password: password,
                                     email: email,
@@ -81,7 +82,6 @@ export default function UserRow(props){
               setErrorMessage('No Server Response');
             } else if (err.response?.status === 401) {
               setErrorMessage('Forbidden');
-              console.log(err);
               await Press();
             } else {
               setErrorMessage('User update Failed');
@@ -93,7 +93,7 @@ export default function UserRow(props){
       e.preventDefault();
       try {
           // http request
-          const response1 = await defaultApi.delete(
+          const response1 = await PrivateApi.delete(
             `/api/v1/users/${props.id}`,
             {
               headers: {
@@ -124,7 +124,7 @@ export default function UserRow(props){
     const Press = async () => {
         try {
           // http request
-          const response = await defaultApi.post(
+          const response = await PrivateApi.post(
             "/api/v1/users/logout",
             JSON.stringify({}),
             {
