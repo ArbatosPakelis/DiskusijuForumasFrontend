@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import defaultApi from "../apis/defaultApi";
+import usePrivateApi from "../hooks/usePrivateApi";
 
 export default function ThreadRow(props){
     const [ update, setUpdate] = useState(false);
@@ -9,6 +9,8 @@ export default function ThreadRow(props){
     const { auth, setAuth } = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const PrivateApi = usePrivateApi();
+
     const onClick = async (e) => {
 
         if(update === false)
@@ -25,7 +27,7 @@ export default function ThreadRow(props){
         e.preventDefault();
         try {
             // http request
-            const response = await defaultApi.patch(
+            const response = await PrivateApi.patch(
               "/api/v1/threads",
               JSON.stringify({ 
                 name: name,
@@ -61,7 +63,7 @@ export default function ThreadRow(props){
     const Press = async () => {
         try {
           // http request
-          const response = await defaultApi.post(
+          const response = await PrivateApi.post(
             "/api/v1/users/logout",
             JSON.stringify({}),
             {
@@ -93,7 +95,7 @@ export default function ThreadRow(props){
       e.preventDefault();
       try {
           // http request
-          const response1 = await defaultApi.delete(
+          const response1 = await PrivateApi.delete(
             `/api/v1/threads/${props.id}`,
             {
               headers: {
@@ -111,7 +113,6 @@ export default function ThreadRow(props){
           } else if (err.response?.status === 401) {
               setErrorMessage('Forbidden');
               await Press();
-              console.log(err);
           } else {
             setErrorMessage('Thread deletion failed');
           }

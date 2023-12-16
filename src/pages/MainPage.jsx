@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import PageRow from "../components/PageRow";
-import defaultApi from "../apis/defaultApi";
+import usePrivateApi from "../hooks/usePrivateApi";
 import useAuth from "../hooks/useAuth";
 import PageForm from "../components/PageForm";
+import christmasTree from '../tree.png';
 
 export default function MainPage(req){
     const { auth} = useAuth();
-
     const [pages, setPages] = useState(undefined);
     const [errorMessage, setErrorMessage] = useState('');
     const [ newPage, setNewPage] = useState(false);
+    const PrivateApi = usePrivateApi();
 
     async function fetchingPages() {
         try {
-            const response = await defaultApi.get("/api/v1/pages");
+            const response = await PrivateApi.get("/api/v1/pages");
             setPages(response?.data?.pages);
         } catch (err) {
             if (!err?.response) {
@@ -52,6 +53,7 @@ export default function MainPage(req){
         <>
             <Header/>
             <h3>Welcome to the main page !</h3>
+            <img src={christmasTree} alt="Christmas Tree" className="img" />
             { auth?.username != null ? (
                 <>
                 <button className="smallButton" onClick={onClick}>
