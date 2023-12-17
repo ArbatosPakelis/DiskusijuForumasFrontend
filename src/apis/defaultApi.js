@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:5000"
+const BASE_URL = "https://diskusiju-forumas-89f8e927e19e.herokuapp.com"
 
 export default axios.create({
     baseUrl: BASE_URL
