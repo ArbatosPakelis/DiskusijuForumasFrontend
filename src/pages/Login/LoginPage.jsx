@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect} from "react";
-import defaultApi from "../../apis/defaultApi";
-import useAuth from "../../hooks/useAuth";
+import defaultApi from "../../apis/defaultApi.js";
+import useAuth from "../../hooks/useAuth.js";
 import { Link, useNavigate, useLocation} from 'react-router-dom';
 
 export default function LoginPage(){

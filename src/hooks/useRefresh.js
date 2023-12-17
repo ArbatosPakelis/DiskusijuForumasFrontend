@@ -1,6 +1,6 @@
 import { json } from "react-router-dom";
-import defaultApi from "../apis/defaultApi";
-import useAuth from "./useAuth";
+import defaultApi from "../apis/defaultApi.js";
+import useAuth from "./useAuth.js";
 
 const useRefresh = () => {
     const { auth, setAuth} = useAuth();

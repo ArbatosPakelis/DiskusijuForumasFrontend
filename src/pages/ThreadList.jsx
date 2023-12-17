@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import ThreadRow from "../components/ThreadRow";
+import Header from "../components/Header.js";
+import ThreadRow from "../components/ThreadRow.jsx";
 import { useParams } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import ThreadForm from "../components/ThreadForm";
-import usePrivateApi from "../hooks/usePrivateApi";
+import useAuth from "../hooks/useAuth.js";
+import ThreadForm from "../components/ThreadForm.jsx";
+import usePrivateApi from "../hooks/usePrivateApi.js";
 
 
 export default function ThreadList(){

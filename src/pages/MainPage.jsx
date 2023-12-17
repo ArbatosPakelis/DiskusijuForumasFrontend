@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import PageRow from "../components/PageRow";
-import usePrivateApi from "../hooks/usePrivateApi";
-import useAuth from "../hooks/useAuth";
-import PageForm from "../components/PageForm";
+import Header from "../components/Header.jsx";
+import PageRow from "../components/PageRow.jsx";
+import usePrivateApi from "../hooks/usePrivateApi.js";
+import useAuth from "../hooks/useAuth.js";
+import PageForm from "../components/PageForm.jsx";
 import christmasTree from '../tree.png';
 
 export default function MainPage(req){

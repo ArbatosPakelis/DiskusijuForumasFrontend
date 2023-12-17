@@ -1,7 +1,7 @@
-import { PrivateApi } from "../apis/defaultApi";
+import { PrivateApi } from "../apis/defaultApi.js";
 import { useEffect } from "react";
-import useRefresh from "./useRefresh";
-import useAuth from "./useAuth";
+import useRefresh from "./useRefresh.js";
+import useAuth from "./useAuth.js";
 import axios from "axios";
 import { config } from "@fortawesome/fontawesome-svg-core";
 

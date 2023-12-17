@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "../components/Header.jsx";
 import { useEffect, useState } from "react";
-import CommentRow from "../components/CommentRow";
-import useAuth from "../hooks/useAuth";
-import CommentForm from "../components/CommentForm";
-import usePrivateApi from "../hooks/usePrivateApi";
+import CommentRow from "../components/CommentRow.jsx";
+import useAuth from "../hooks/useAuth.js";
+import CommentForm from "../components/CommentForm.jsx";
+import usePrivateApi from "../hooks/usePrivateApi.js";
 
 export default function CommentSection(){
     const { auth} = useAuth();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import usePrivateApi from "../hooks/usePrivateApi";
+import useAuth from "../hooks/useAuth.js";
+import usePrivateApi from "../hooks/usePrivateApi.js";
 
 export default function CommentForm(props){
     const [content, setContent] = useState("");

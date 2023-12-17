@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import PageRow from "../components/PageRow";
-import useAuth from "../hooks/useAuth";
-import PageForm from "../components/PageForm";
-import UserRow from "../components/UserRow";
-import usePrivateApi from "../hooks/usePrivateApi";
+import Header from "../components/Header.js";
+import useAuth from "../hooks/useAuth.js";
+import UserRow from "../components/UserRow.jsx";
+import usePrivateApi from "../hooks/usePrivateApi.js";
 
 export default function MainPage(req){
     const { auth} = useAuth();
