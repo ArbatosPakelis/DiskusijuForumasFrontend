@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header.js";
+import Header from "../components/Header.jsx";
 import ThreadRow from "../components/ThreadRow.jsx";
 import { useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";

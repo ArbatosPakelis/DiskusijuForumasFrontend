@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header.js";
+import Header from "../components/Header.jsx";
 import useAuth from "../hooks/useAuth.js";
 import UserRow from "../components/UserRow.jsx";
 import usePrivateApi from "../hooks/usePrivateApi.js";
