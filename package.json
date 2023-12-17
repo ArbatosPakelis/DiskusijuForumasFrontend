@@ -5,6 +5,9 @@
   "engines": {
     "node": "16.18.0"
   },
+  "presets": [
+    "@babel/preset-react"
+  ],
   "main": "src/index.js",
   "type": "module",
   "private": true,
