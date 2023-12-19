@@ -130,10 +130,14 @@ export default function CommentRow(props){
                     <div>
                         <p style={{ margin:"20px 0px 0px 10px"}}>{props.content}</p>
                     </div>
+                    { auth.id === props.users_fk || auth.role === "admin" ? (
                     <div className="bottomRightContainer">
                         <button className="bottomRightButton" style={{marginRight:"100px"}} onClick={onClick}>Update</button>
                         <button className="bottomRightButton" onClick={onTickle}>Delete</button>
                     </div>
+                    ) : (
+                        <p></p>
+                    )}
                 </div>
             </div>
             {update ? (
