@@ -68,7 +68,7 @@ export default function LoginPage(){
     return (
         <section>
             <p ref={errorRef} className={errorMessage ? "errorMessage" : "offscreen"} aria-live="assertive">{errorMessage}</p>
-            <h3>Register</h3>
+            <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                     <label htmlFor="username">
                         Username:
